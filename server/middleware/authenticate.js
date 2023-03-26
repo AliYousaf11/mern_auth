@@ -6,12 +6,10 @@ const authenticate = async (req, res, next) => {
   try {
     //get token from header....
     const token = req.headers.authorization;
-    console.log(token);
 
     // verify it ..... aganest user id ....
     const verify = jwt.verify(token, key);
     const rootuser = await UserDetails.findOne({ _id: verify._id });
-    console.log(rootuser);
 
     // user not found....
     if (!rootuser) {
@@ -19,17 +17,17 @@ const authenticate = async (req, res, next) => {
         status: 404,
         message: "user not found",
       });
+    } else {
+      //user found.....
+      res.status(200).json({
+        status: 200,
+        data: rootuser,
+        message: "user verified ..",
+      });
+
+      // ....
+      next();
     }
-
-    //user found.....
-    res.status(200).json({
-      status: 200,
-      data: rootuser,
-      message: "user verified ..",
-    });
-
-    // ....
-    next();
 
     // req....
     // req.token = token;
@@ -38,7 +36,7 @@ const authenticate = async (req, res, next) => {
   } catch (error) {
     res.status(404).json({
       status: 404,
-      message: error,
+      message: "error",
     });
   }
 };

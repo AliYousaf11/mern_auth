@@ -33,7 +33,7 @@ export const Login = () => {
     // after validation user credential send to server side...
     else {
       // alert("Registeration pending.....");
-      fetch("http://localhost:8000/api/login", {
+      fetch("http://localhost:8000/user/login", {
         headers: {
           "content-type": "application/json",
           "Access-Control-Allow-Origin": "*",

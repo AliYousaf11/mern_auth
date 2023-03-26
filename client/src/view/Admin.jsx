@@ -14,10 +14,10 @@ export const Admin = () => {
   useEffect(() => {
     //gettoken from the localstorage...
     let token = localStorage.getItem("usertoken");
-    console.log("admin page -> : " + token);
+    console.log("admin page  set token to header-> : " + token);
 
     // token send to server-side....
-    fetch("http://localhost:8000/api/admin", {
+    fetch("http://localhost:8000/admin/admin", {
       method: "GET",
       headers: {
         "content-type": "application/json",

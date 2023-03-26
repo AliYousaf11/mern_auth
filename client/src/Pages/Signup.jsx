@@ -39,7 +39,7 @@ export const Signup = () => {
     // after validation user credential send to server side...
     else {
       // alert("Registeration pending.....");
-      fetch("http://localhost:8000/api/signup", {
+      fetch("http://localhost:8000/user/signup", {
         headers: {
           "content-type": "application/json",
           "Access-Control-Allow-Origin": "*",

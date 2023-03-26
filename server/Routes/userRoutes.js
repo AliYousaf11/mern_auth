@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const UserDetails = require("../model/userSchema");
 const bcrypt = require("bcryptjs");
-const authenticate = require("../middleware/authenticate");
-const productsSchema = require("../model/productSchema");
 
 // SignUp routes...
 router.post("/signup", async (req, res) => {
@@ -93,69 +91,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// admin routes....
-router.get("/admin", authenticate, async (req, res) => {
-  console.log("admin");
-  // try {
-  //   const validone = await UserDetails.findOne({
-  //     _id: req.userId,
-  //   });
-  //   res.status(200).json({
-  //     data: validone,
-  //     message: "valid",
-  //   });
-  // } catch (error) {
-  //   res.status(404).json({
-  //     status: 404,
-  //     message: error,
-  //   });
-  // }
-});
-
-// addproducts routes....
-router.post("/addproduct", async (req, res) => {
-  // product recevied from client-side.....
-  const { name, price, quantity } = req.body;
-
-  try {
-    const productExit = await productsSchema.findOne({ name: name });
-    if (productExit) {
-      res.status(200).json({
-        message: "Product already exit this name ",
-      });
-    } else {
-      // new product add to product schema
-      const user = new productsSchema({
-        name: name,
-        price: price,
-        quantity: quantity,
-      });
-      await user.save();
-
-      // response send to client-side.....
-      res.status(200).json({
-        message: "Add Product Successfully...",
-      });
-    }
-  } catch (error) {
-    res.status(401).json({
-      message: error,
-    });
-  }
-});
-
-// get all products...
-router.get("/getproduct", async (req, res) => {
-  // get all products from DB
-  const products = await productsSchema.find();
-
-  return res.json({
-    status: 200,
-    data: products,
-    message: `Your are Successfully Get Products...`,
-  });
-});
-
 // get all users...
 router.get("/getusers", async (req, res) => {
   // get all products from DB
@@ -174,4 +109,5 @@ router.get("/getusers", async (req, res) => {
     });
   }
 });
+
 module.exports = router;

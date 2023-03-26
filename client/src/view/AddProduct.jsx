@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AddProduct = () => {
   // check user login or not ?
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
+  //gettoken from the localstorage...
+  let token = localStorage.getItem("usertoken");
   // product state....
   const [addproduct, setAddProduct] = useState({
     name: "",
@@ -37,7 +39,7 @@ export const AddProduct = () => {
     }
     // add product to the backend....
     else {
-      fetch("http://localhost:8000/api/addproduct", {
+      fetch("http://localhost:8000/product/addproduct", {
         headers: {
           "content-type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -53,16 +55,13 @@ export const AddProduct = () => {
         .then((res) => {
           alert(res.message);
           setAddProduct({ name: " ", price: " ", quantity: " " });
+          // navigate("/addproduct");
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     }
   };
-  // after login redirect to page
-  // useEffect(() => {
-  //   navigate("/login");
-  // }, []);
 
   return (
     <div>

@@ -17,7 +17,7 @@ export const Users = () => {
 
   // before page render it will fetch data from the database...
   useEffect(() => {
-    fetch("http://localhost:8000/api/getusers", {
+    fetch("http://localhost:8000/user/getusers", {
       headers: {
         "content-type": "application/json",
         "Access-Control-Allow-Origin": "*",
